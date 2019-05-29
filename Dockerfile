@@ -17,11 +17,10 @@ VOLUME ["/var/syncthing"]
 RUN apk add --no-cache ca-certificates su-exec
 
 COPY --from=builder /src/stdiscosrv /bin/stdiscosrv
-COPY --from=builder /src/script/docker-entrypoint.sh /bin/entrypoint.sh
 
 ENV PUID=1000 PGID=1000
 
 HEALTHCHECK --interval=1m --timeout=10s \
   CMD nc -z localhost 8384 || exit 1
 
-ENTRYPOINT ["/bin/entrypoint.sh"]
+ENTRYPOINT ["/bin/stdiscosrv"]
